@@ -5,6 +5,7 @@ list_colors = ['blue', 'red', 'yellow', 'green', 'orange', 'violet', 'grey', 'br
 code_length = 4
 current_index = {"value": 0}
 count = 0
+click = 0
 
 def draw_game():
     start_row = 15
@@ -31,8 +32,6 @@ def generating_code():
     print(code)
     return code
 
-
-
 def create_empty_table():
     rows, cols = 12, 4
     start_row = 3
@@ -47,45 +46,73 @@ def create_empty_table():
     return cells
 
 
+def add_a_row(position):
+    new_position = 15 - position
+    print(new_position)
+    new_row=[]
+    for col in range(4):
+        lbl = tkinter.Label(root, text="", width=5, height=2, relief="solid", bg="white")
+        lbl.grid(row=3 + new_position, column=col, padx=5, pady=5) 
+        new_row.append(lbl)
+
+    table.insert(new_position, new_row)
+
+    for r in range(new_position + 1, len(table)):
+        for c in range(4):
+            table[r][c].grid(row=3 + r, column=c, padx=5, pady=5)
+
+
 
 def click_color(a):
     global count
     if count <4:
 
         count += 1
-        
         print(count)
+
         rows, cols = 12, 4
         total_cells = rows*cols
         index = current_index["value"]
+
 
         if index < total_cells:
             r = index //cols
             c = index % cols
             table[r][c]['bg'] = a
             current_index["value"] += 1
-    
+
     return table
 
         
 def code_verification():
-    for i in range(code_length):
-        if code[i] == table[i]:
-            text = tkinter.Text("Correct" )   
-            text.pack() 
-        else : 
-            text = tkinter.Text("Wrong" ) 
-            text.pack()    
-    return code == table
+    global count
+    global click
+    guess = [table[click][i].cget("bg") for i in range(code_length)]
+    click += 1
+    add_a_row(click)
+    print(guess)
 
-# Stockages
+    for i in range(code_length):
+
+        if guess[i] == code[i]:
+            r = click //4
+            c = i % 4
+            table[r][c]['bg'] = 'green'
+
+        else:
+            r = click //4
+            c = i % 4
+            table[r][c]['bg'] = 'red'
+
+    count = 0 
+    click += 1
 
 
 #creer la fenetre du jeu
 root = tkinter.Tk()
 
 root.title('Mastermind')
-root.minsize(500, 800)
+root.minsize(800, 800)
 draw_game()
 table = create_empty_table()
 code = generating_code()
