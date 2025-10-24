@@ -1,5 +1,5 @@
 Welcome to the Mastermind game ! <br/>
-Creation of a mastermind game in Python with an interface Tkinter.<br/>
+Creation of a mastermind game in Python with an Tkinter interface.<br/>
 Here are some pictures of the final result :<br/>
 <img width="593" height="330" alt="mastermind_1" src="https://github.com/user-attachments/assets/d82474b8-d5ca-4020-bb58-d0e9b0435ca0" />
 <img width="594" height="496" alt="mastermind_2" src="https://github.com/user-attachments/assets/00c91437-562a-4e48-b8ff-7347e3a683bb" />
